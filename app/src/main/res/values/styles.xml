@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="MkTrollTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MkTrollActionBar</item>
+    </style>
+
+    <style name="MkTrollActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/darkgreen</item>
+    </style>
+
+</resources>
