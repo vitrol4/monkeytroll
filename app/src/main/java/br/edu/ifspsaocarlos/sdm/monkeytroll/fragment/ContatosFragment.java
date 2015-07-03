@@ -3,6 +3,7 @@ package br.edu.ifspsaocarlos.sdm.monkeytroll.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.ifspsaocarlos.sdm.monkeytroll.R;
 import br.edu.ifspsaocarlos.sdm.monkeytroll.model.Contato;
 import br.edu.ifspsaocarlos.sdm.monkeytroll.util.ContatoSessionManager;
 import br.edu.ifspsaocarlos.sdm.monkeytroll.util.MkTrollConstants;
@@ -43,22 +45,25 @@ public class ContatosFragment extends ListFragment {
         sessionManager = new ContatoSessionManager(context);
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Procurando ...");
-//        Bundle args = getArguments();
-//        ArrayList<Contato> contatos = (ArrayList<Contato>) args.getSerializable("contatos");
-//        if (contatos != null) {
-//            listAdapter = new ArrayAdapter<>(context,
-//                    android.R.layout.simple_list_item_1, contatos);
-//            setListAdapter(listAdapter);
-//        } else {
+
         carregaContatos();
-//        }
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Contato contato = (Contato) l.getItemAtPosition(position);
+        Bundle args = new Bundle();
+        args.putString("destinatarioId", contato.getId());
 
+        Fragment fragment = new MensagemFragment();
+        fragment.setArguments(args);
+        getFragmentManager().beginTransaction()
+                .addToBackStack(fragment.getClass().getName())
+                .replace(R.id.mainContent, fragment)
+                .commit();
     }
 
     private void carregaContatos() {

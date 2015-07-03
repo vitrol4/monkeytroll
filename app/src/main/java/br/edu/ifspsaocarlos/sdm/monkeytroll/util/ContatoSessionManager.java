@@ -13,6 +13,7 @@ import br.edu.ifspsaocarlos.sdm.monkeytroll.LoginActivity;
  */
 public class ContatoSessionManager {
 
+    public static final String KEY_ID = "id";
     public static final String KEY_APELIDO = "apelido";
     public static final String KEY_NOME_COMPLETO = "nome_completo";
     private static final String PREFER_NAME = MkTrollConstants.PREFER;
@@ -30,8 +31,9 @@ public class ContatoSessionManager {
         editor.apply();
     }
 
-    public void createUserLoginSession(String apelido, String nomeCompleto) {
+    public void createUserLoginSession(String id, String apelido, String nomeCompleto) {
         editor.putBoolean(IS_USER_LOGIN, true);
+        editor.putString(KEY_ID, id);
         editor.putString(KEY_APELIDO, apelido);
         editor.putString(KEY_NOME_COMPLETO, nomeCompleto);
         editor.commit();
@@ -50,6 +52,7 @@ public class ContatoSessionManager {
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
         user.put(KEY_APELIDO, pref.getString(KEY_APELIDO, null));
         user.put(KEY_NOME_COMPLETO, pref.getString(KEY_NOME_COMPLETO, null));
         return user;

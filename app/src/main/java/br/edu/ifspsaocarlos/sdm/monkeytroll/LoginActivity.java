@@ -18,7 +18,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Procurando ...");
+        progressDialog.setMessage("Entrando ...");
         sessionManager = new ContatoSessionManager(getBaseContext());
 
         if (sessionManager.getUserDetails().get(ContatoSessionManager.KEY_NOME_COMPLETO) != null) {
@@ -92,21 +91,19 @@ public class LoginActivity extends Activity {
                                                     if (progressDialog.isShowing()) {
                                                         progressDialog.dismiss();
                                                     }
-                                                    sessionManager.createUserLoginSession(apelido, c.getNomeCompleto());
-                                                    Bundle args = new Bundle();
-                                                    args.putSerializable("contatos", (Serializable) contatos);
+                                                    sessionManager.createUserLoginSession(c.getId(), c.getApelido(), c.getNomeCompleto());
                                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                                    i.putExtra("args", args);
                                                     startActivity(i);
                                                     finish();
-                                                } else {
                                                     if (progressDialog.isShowing()) {
                                                         progressDialog.dismiss();
                                                     }
-                                                    Toast.makeText(LoginActivity.this, "Você não está cadastrado",
-                                                            Toast.LENGTH_SHORT).show();
+                                                    return;
                                                 }
                                             }
+
+                                            Toast.makeText(LoginActivity.this, "Você não está cadastrado",
+                                                    Toast.LENGTH_SHORT).show();
                                         } catch (Exception e) {
                                             Log.e("MkTroll", e.getMessage(), e);
                                         }
