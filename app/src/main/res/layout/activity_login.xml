@@ -29,30 +29,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/email"
+            android:hint="Apelido"
             android:padding="16dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
-        <EditText
-            android:id="@+id/edtPassword"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/senha"
-            android:inputType="textPassword"
-            android:padding="16dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/btnEntrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/entrar">
+            <Button
+                android:id="@+id/btnEntrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/entrar">
 
-        </Button>
+            </Button>
+
+            <Button
+                android:id="@+id/btnSolicitarCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Cadastrar">
+
+            </Button>
+        </LinearLayout>
     </LinearLayout>
 
 

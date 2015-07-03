@@ -14,14 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifspsaocarlos.sdm.monkeytroll.adapter.DrawerListAdapter;
-import br.edu.ifspsaocarlos.sdm.monkeytroll.fragment.NovoFragment;
+import br.edu.ifspsaocarlos.sdm.monkeytroll.fragment.ContatosFragment;
 import br.edu.ifspsaocarlos.sdm.monkeytroll.model.NavItem;
-import br.edu.ifspsaocarlos.sdm.monkeytroll.util.UserSessionManager;
+import br.edu.ifspsaocarlos.sdm.monkeytroll.util.ContatoSessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,20 +32,28 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout mDrawerPane;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    private UserSessionManager sessionManager;
+    private ContatoSessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        sessionManager = new UserSessionManager(getBaseContext());
-//        if (sessionManager.checkLogin()) {
-//            finish();
-//        }
+        sessionManager = new ContatoSessionManager(getBaseContext());
+        if (sessionManager.checkLogin()) {
+            finish();
+        }
+
+        ((TextView) findViewById(R.id.userName)).setText(sessionManager.getUserDetails().get(ContatoSessionManager.KEY_APELIDO));
+        findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sessionManager.logoutUser();
+            }
+        });
 
         mNavItems = new ArrayList<>();
-        mNavItems.add(new NavItem("asdf", "testeasdf", 0));
+        mNavItems.add(new NavItem("Contatos", "todos", R.drawable.contacts1));
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerPane = (RelativeLayout) findViewById(R.id.drawerPane);
         mDrawerList = (ListView) findViewById(R.id.navList);
@@ -79,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkgreen)));
         }
 
-        Fragment fragment = new NovoFragment();
+        Bundle args = getIntent().getBundleExtra("args");
+        Fragment fragment = new ContatosFragment();
+        fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(fragment.getClass().getName())
                 .replace(R.id.mainContent, fragment)
@@ -91,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new NovoFragment();
+                fragment = new ContatosFragment();
                 fragmentManager.beginTransaction()
                         .addToBackStack(fragment.getClass().getName())
                         .replace(R.id.mainContent, fragment)

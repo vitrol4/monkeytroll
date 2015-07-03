@@ -11,11 +11,10 @@ import br.edu.ifspsaocarlos.sdm.monkeytroll.LoginActivity;
 /**
  * Created by victor on 22/06/15.
  */
-public class UserSessionManager {
+public class ContatoSessionManager {
 
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_TOKEN = "token";
-    public static final String KEY_PARTY_ID = "partyId";
+    public static final String KEY_APELIDO = "apelido";
+    public static final String KEY_NOME_COMPLETO = "nome_completo";
     private static final String PREFER_NAME = MkTrollConstants.PREFER;
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";
 
@@ -24,26 +23,17 @@ public class UserSessionManager {
     private SharedPreferences.Editor editor;
     private Context context;
 
-    public UserSessionManager(Context context) {
+    public ContatoSessionManager(Context context) {
         this.context = context;
         pref = context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
         editor = pref.edit();
         editor.apply();
     }
 
-    public void createPartyId(String partyId) {
-        editor.putString(KEY_PARTY_ID, partyId);
-        editor.commit();
-    }
-
-    public String getPartyId() {
-        return pref.getString(KEY_PARTY_ID, null);
-    }
-
-    public void createUserLoginSession(String email, String token) {
+    public void createUserLoginSession(String apelido, String nomeCompleto) {
         editor.putBoolean(IS_USER_LOGIN, true);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_TOKEN, token);
+        editor.putString(KEY_APELIDO, apelido);
+        editor.putString(KEY_NOME_COMPLETO, nomeCompleto);
         editor.commit();
     }
 
@@ -60,8 +50,8 @@ public class UserSessionManager {
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<>();
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
+        user.put(KEY_APELIDO, pref.getString(KEY_APELIDO, null));
+        user.put(KEY_NOME_COMPLETO, pref.getString(KEY_NOME_COMPLETO, null));
         return user;
     }
 

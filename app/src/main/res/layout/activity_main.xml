@@ -51,6 +51,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
             </LinearLayout>
         </RelativeLayout>
 
@@ -62,6 +63,30 @@
             android:layout_below="@+id/profileBox"
             android:background="@color/white"
             android:choiceMode="singleChoice" />
+
+        <RelativeLayout
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/darkblue"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/navList"
+            android:layout_alignEnd="@+id/navList">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
