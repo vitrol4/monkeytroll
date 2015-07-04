@@ -10,7 +10,10 @@
         android:layout_above="@+id/relativeLayout"
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
-        android:cacheColorHint="@android:color/transparent">
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll">
 
     </ListView>
 
@@ -39,9 +42,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:padding="10dp"
-            android:background="@null"
+            android:background="@android:color/transparent"
             android:gravity="center_vertical|center_horizontal"
+            android:padding="10dp"
             android:src="@drawable/send" />
     </RelativeLayout>
 

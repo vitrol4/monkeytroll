@@ -88,9 +88,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkgreen)));
         }
 
-        Bundle args = getIntent().getBundleExtra("args");
         Fragment fragment = new ContatosFragment();
-        fragment.setArguments(args);
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(fragment.getClass().getName())
                 .replace(R.id.mainContent, fragment)

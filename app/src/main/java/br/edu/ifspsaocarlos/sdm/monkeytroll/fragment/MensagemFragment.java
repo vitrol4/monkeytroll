@@ -58,7 +58,7 @@ public class MensagemFragment extends Fragment {
         btnEnviar = (ImageButton) view.findViewById(R.id.btnEnviar);
         edtCorpo = (EditText) view.findViewById(R.id.edtCorpo);
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Carreagando ...");
+        progressDialog.setMessage("Carregando ...");
 
         sessionManager = new ContatoSessionManager(context);
 
