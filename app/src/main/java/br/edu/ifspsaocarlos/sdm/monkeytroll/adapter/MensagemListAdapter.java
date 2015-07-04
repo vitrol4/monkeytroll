@@ -2,6 +2,7 @@ package br.edu.ifspsaocarlos.sdm.monkeytroll.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +48,13 @@ public class MensagemListAdapter extends ArrayAdapter<Mensagem> {
             convertView = inflater.inflate(R.layout.mensagem_item, null);
             holder = new ViewHolder();
             holder.mensagem = (TextView) convertView.findViewById(R.id.msgCorpo);
+            holder.mensagem.setTextColor(Color.parseColor("#FFFFFF"));
             if (remetenteId.equals(mensagem.getOrigem())) {
                 holder.mensagem.setLayoutParams(right);
+                holder.mensagem.setBackgroundColor(Color.parseColor("#008B8B"));
             } else {
                 holder.mensagem.setLayoutParams(left);
+                holder.mensagem.setBackgroundColor(Color.parseColor("#006400"));
             }
             convertView.setTag(holder);
         } else {
@@ -58,10 +62,13 @@ public class MensagemListAdapter extends ArrayAdapter<Mensagem> {
         }
 
         holder.mensagem.setText(mensagem.getCorpo());
+        holder.mensagem.setTextColor(Color.parseColor("#FFFFFF"));
         if (remetenteId.equals(mensagem.getOrigem())) {
             holder.mensagem.setLayoutParams(right);
+            holder.mensagem.setBackgroundColor(Color.parseColor("#008B8B"));
         } else {
             holder.mensagem.setLayoutParams(left);
+            holder.mensagem.setBackgroundColor(Color.parseColor("#006400"));
         }
 
         return convertView;
