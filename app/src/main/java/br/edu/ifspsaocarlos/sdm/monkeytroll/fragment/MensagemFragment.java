@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,8 @@ public class MensagemFragment extends Fragment {
     private ProgressDialog progressDialog;
     private String remetenteId, destinatarioId, assunto;
     private EditText edtCorpo;
+    private List<Mensagem> mensagens;
+    private MensagemListAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,13 +72,22 @@ public class MensagemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 enviarMensagem(remetenteId, destinatarioId, assunto, edtCorpo.getText().toString());
+                edtCorpo.setText("");
+                carregaMensagens("0", remetenteId, destinatarioId);
             }
         });
 
         return view;
     }
 
-    private void carregaMensagens(String mensagemId, String remetenteId, String destinatarioId) {
+    private void carregaMensagens(final String mensagemId, final String remetenteId, final String destinatarioId) {
+        mensagens = new ArrayList<Mensagem>() {
+            @Override
+            public synchronized boolean add(Mensagem object) {
+                return super.add(object);
+            }
+        };
+
         String url = MkTrollConstants.ENDPOINT.concat(MkTrollConstants.MENSAGEM).concat("/")
                 .concat(mensagemId).concat("/")
                 .concat(remetenteId).concat("/")
@@ -86,7 +99,6 @@ public class MensagemFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            List<Mensagem> mensagens = new ArrayList<>();
                             Mensagem mensagem;
                             JSONArray array = response.getJSONArray("mensagens");
                             for (int i = 0; i < array.length(); i++) {
@@ -100,8 +112,19 @@ public class MensagemFragment extends Fragment {
                                 mensagens.add(mensagem);
                             }
 
-                            MensagemListAdapter adapter = new MensagemListAdapter(getActivity(), mensagens);
+                            Collections.sort(mensagens, new Comparator<Mensagem>() {
+                                @Override
+                                public int compare(Mensagem mensagem, Mensagem t1) {
+                                    int o2 = Integer.decode(mensagem.getId());
+                                    int o1 = Integer.decode(t1.getId());
+                                    return (o1 > o2 ? -1 : (o1 == o2 ? 0 : 1));
+                                }
+                            });
+
+                            adapter = new MensagemListAdapter(getActivity(), mensagens);
                             lstMensagens.setAdapter(adapter);
+
+                            carregaInverso(mensagemId, destinatarioId, remetenteId);
 
                             if (progressDialog.isShowing()) {
                                 progressDialog.dismiss();
@@ -134,7 +157,6 @@ public class MensagemFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            List<Mensagem> mensagens = new ArrayList<>();
                             Mensagem mensagem;
                             JSONArray array = response.getJSONArray("mensagens");
                             for (int i = 0; i < array.length(); i++) {
@@ -148,7 +170,15 @@ public class MensagemFragment extends Fragment {
                                 mensagens.add(mensagem);
                             }
 
-                            MensagemListAdapter adapter = new MensagemListAdapter(getActivity(), mensagens);
+                            Collections.sort(mensagens, new Comparator<Mensagem>() {
+                                @Override
+                                public int compare(Mensagem mensagem, Mensagem t1) {
+                                    int o2 = Integer.decode(mensagem.getId());
+                                    int o1 = Integer.decode(t1.getId());
+                                    return (o1 > o2 ? -1 : (o1 == o2 ? 0 : 1));
+                                }
+                            });
+                            adapter = new MensagemListAdapter(getActivity(), mensagens);
                             lstMensagens.setAdapter(adapter);
 
                             if (progressDialog.isShowing()) {

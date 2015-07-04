@@ -37,12 +37,20 @@ public class MensagemListAdapter extends ArrayAdapter<Mensagem> {
         right.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
         right.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
 
+        RelativeLayout.LayoutParams left = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        left.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        left.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.mensagem_item, null);
             holder = new ViewHolder();
             holder.mensagem = (TextView) convertView.findViewById(R.id.msgCorpo);
             if (remetenteId.equals(mensagem.getOrigem())) {
                 holder.mensagem.setLayoutParams(right);
+            } else {
+                holder.mensagem.setLayoutParams(left);
             }
             convertView.setTag(holder);
         } else {
@@ -52,6 +60,8 @@ public class MensagemListAdapter extends ArrayAdapter<Mensagem> {
         holder.mensagem.setText(mensagem.getCorpo());
         if (remetenteId.equals(mensagem.getOrigem())) {
             holder.mensagem.setLayoutParams(right);
+        } else {
+            holder.mensagem.setLayoutParams(left);
         }
 
         return convertView;
