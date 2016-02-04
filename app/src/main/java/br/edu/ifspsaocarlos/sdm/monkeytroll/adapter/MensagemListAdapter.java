@@ -35,14 +35,16 @@ public class MensagemListAdapter extends ArrayAdapter<Mensagem> {
         RelativeLayout.LayoutParams right = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
         );
+        right.setMargins(0, 5, 5, 5);
         right.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-        right.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+//        right.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
 
         RelativeLayout.LayoutParams left = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT
         );
+        right.setMargins(5, 5, 0, 5);
         left.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-        left.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+//        left.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.mensagem_item, null);
